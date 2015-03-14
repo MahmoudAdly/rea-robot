@@ -105,12 +105,15 @@ class Robot
     if valid_location?(new_location) && FACES.keys.include?(new_face)
       @location = new_location
       @face = new_face
+      @is_placed = true
     else
       puts 'Invalid Place'
     end
   end
 
   def move
+    return unless @is_placed
+
     new_location = {
       :x=>@location[:x]+FACES[@face][:x],
       :y=>@location[:y]+FACES[@face][:y]
@@ -123,15 +126,21 @@ class Robot
   end
 
   def rotate(counter_clock=false)
+    return unless @is_placed
+
     direction = counter_clock == false ? 1 : -1
     @face = FACES.keys[(FACES.keys.index(@face)+direction)%FACES.size]
   end
 
   def report
-    return "%{x},%{y},%{face}" % {
-      :x=>@location[:x],
-      :y=>@location[:y],
-      :face=>@face}
+    if @is_placed
+      return "%{x},%{y},%{face}" % {
+        :x=>@location[:x],
+        :y=>@location[:y],
+        :face=>@face}
+    else
+      return "N/A"
+    end
   end
 
   def valid_location?(location)

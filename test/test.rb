@@ -25,4 +25,10 @@ class TestRobot < Test::Unit::TestCase
     assert_equal('3,3,NORTH', @robot.execute('REPORT'))
   end
 
+  def test_d
+    @robot.load_commands_from_file('./test/d.txt')
+    @robot.start
+    assert_equal('N/A', @robot.execute('REPORT'))
+  end
+
 end
