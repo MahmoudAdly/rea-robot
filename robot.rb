@@ -128,7 +128,7 @@ class Robot
   end
 
   def report
-    puts "%{x},%{y},%{face}" % {
+    return "%{x},%{y},%{face}" % {
       :x=>@location[:x],
       :y=>@location[:y],
       :face=>@face}
